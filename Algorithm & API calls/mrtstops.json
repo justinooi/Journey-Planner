@@ -1,0 +1,12 @@
+#Service number:What line it belongs to,
+#Direction, 1 for forwards, 2 for backwards
+#Operater: to differentiate bus and MRT
+#MRTCode: to track station names for each node
+
+#TODO- add station names
+#connect to mrtstops.jsons via MRTCode
+
+#---------------------------------------------------#
+#--------------------#NS Line-----------------------#
+#---------------------------------------------------#
+[{"Latitude": 1.29684825487647, "BusStopCode": "01012", "Description": "Hotel Grand Pacific", "Longitude": 103.85253591654006, "RoadName": "Victoria St"},
