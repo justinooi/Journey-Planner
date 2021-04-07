@@ -1,7 +1,6 @@
-from PyQt5.QtCore import QStringListModel
-from PyQt5.QtWebEngineWidgets import QWebEngineView
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QCompleter
+from dijkstra_bus import dijkstra_bus
 import pandas as pd
 
 
@@ -30,33 +29,33 @@ class Ui_JourneyPlannerGUI(object):
         self.mrtRadioButton = QtWidgets.QRadioButton(self.transportGroupBox)
         self.mrtRadioButton.setGeometry(QtCore.QRect(20, 20, 82, 17))
         self.mrtRadioButton.setObjectName("mrtRadioButton")
-        self.radioButton = QtWidgets.QRadioButton(self.transportGroupBox)
-        self.radioButton.setGeometry(QtCore.QRect(200, 20, 61, 17))
-        self.radioButton.setObjectName("radioButton")
-        self.radioButton_2 = QtWidgets.QRadioButton(self.transportGroupBox)
-        self.radioButton_2.setGeometry(QtCore.QRect(380, 20, 71, 17))
-        self.radioButton_2.setObjectName("radioButton_2")
+        self.busRadioButton = QtWidgets.QRadioButton(self.transportGroupBox)
+        self.busRadioButton.setGeometry(QtCore.QRect(200, 20, 61, 17))
+        self.busRadioButton.setObjectName("busRadioButton")
+        self.mrtBusRadioButton = QtWidgets.QRadioButton(self.transportGroupBox)
+        self.mrtBusRadioButton.setGeometry(QtCore.QRect(380, 20, 71, 17))
+        self.mrtBusRadioButton.setObjectName("mrtBusRadioButton")
         self.routeSelectionGroupBox = QtWidgets.QGroupBox(self.centralwidget)
         self.routeSelectionGroupBox.setGeometry(QtCore.QRect(10, 130, 471, 301))
         self.routeSelectionGroupBox.setObjectName("routeSelectionGroupBox")
         self.listView = QtWidgets.QListView(self.routeSelectionGroupBox)
         self.listView.setGeometry(QtCore.QRect(10, 20, 301, 131))
         self.listView.setObjectName("listView")
-        self.djisktraStopsLabel = QtWidgets.QLabel(self.routeSelectionGroupBox)
-        self.djisktraStopsLabel.setGeometry(QtCore.QRect(320, 20, 141, 16))
-        self.djisktraStopsLabel.setObjectName("djisktraStopsLabel")
-        self.djisktraDistLabel = QtWidgets.QLabel(self.routeSelectionGroupBox)
-        self.djisktraDistLabel.setGeometry(QtCore.QRect(320, 40, 141, 16))
-        self.djisktraDistLabel.setObjectName("djisktraDistLabel")
-        self.djisktraTimeLabel = QtWidgets.QLabel(self.routeSelectionGroupBox)
-        self.djisktraTimeLabel.setGeometry(QtCore.QRect(320, 60, 141, 16))
-        self.djisktraTimeLabel.setObjectName("djisktraTimeLabel")
-        self.djisktraTransferLabel = QtWidgets.QLabel(self.routeSelectionGroupBox)
-        self.djisktraTransferLabel.setGeometry(QtCore.QRect(320, 80, 141, 16))
-        self.djisktraTransferLabel.setObjectName("djisktraTransferLabel")
-        self.djisktraPlotButton = QtWidgets.QPushButton(self.routeSelectionGroupBox)
-        self.djisktraPlotButton.setGeometry(QtCore.QRect(320, 100, 141, 51))
-        self.djisktraPlotButton.setObjectName("djisktraPlotButton")
+        self.dijkstraStopsLabel = QtWidgets.QLabel(self.routeSelectionGroupBox)
+        self.dijkstraStopsLabel.setGeometry(QtCore.QRect(320, 20, 141, 16))
+        self.dijkstraStopsLabel.setObjectName("dijkstraStopsLabel")
+        self.dijkstraDistLabel = QtWidgets.QLabel(self.routeSelectionGroupBox)
+        self.dijkstraDistLabel.setGeometry(QtCore.QRect(320, 40, 141, 16))
+        self.dijkstraDistLabel.setObjectName("dijkstraDistLabel")
+        self.dijkstraTimeLabel = QtWidgets.QLabel(self.routeSelectionGroupBox)
+        self.dijkstraTimeLabel.setGeometry(QtCore.QRect(320, 60, 141, 16))
+        self.dijkstraTimeLabel.setObjectName("dijkstraTimeLabel")
+        self.dijkstraTransferLabel = QtWidgets.QLabel(self.routeSelectionGroupBox)
+        self.dijkstraTransferLabel.setGeometry(QtCore.QRect(320, 80, 141, 16))
+        self.dijkstraTransferLabel.setObjectName("dijkstraTransferLabel")
+        self.dijkstraPlotButton = QtWidgets.QPushButton(self.routeSelectionGroupBox)
+        self.dijkstraPlotButton.setGeometry(QtCore.QRect(320, 100, 141, 51))
+        self.dijkstraPlotButton.setObjectName("dijkstraPlotButton")
         self.bfsStopsLabel = QtWidgets.QLabel(self.routeSelectionGroupBox)
         self.bfsStopsLabel.setGeometry(QtCore.QRect(320, 160, 141, 16))
         self.bfsStopsLabel.setObjectName("bfsStopsLabel")
@@ -80,6 +79,8 @@ class Ui_JourneyPlannerGUI(object):
         self.statusbar.setObjectName("statusbar")
         JourneyPlannerGUI.setStatusBar(self.statusbar)
 
+        self.findRouteButton.clicked.connect(lambda: self.findRoute())
+
         self.retranslateUi(JourneyPlannerGUI)
         QtCore.QMetaObject.connectSlotsByName(JourneyPlannerGUI)
 
@@ -91,14 +92,14 @@ class Ui_JourneyPlannerGUI(object):
         self.endLocationTextBox.setPlaceholderText(_translate("JourneyPlannerGUI", "Enter End Location"))
         self.transportGroupBox.setTitle(_translate("JourneyPlannerGUI", "Mode of Transport"))
         self.mrtRadioButton.setText(_translate("JourneyPlannerGUI", "MRT Only"))
-        self.radioButton.setText(_translate("JourneyPlannerGUI", "Bus Only"))
-        self.radioButton_2.setText(_translate("JourneyPlannerGUI", "MRT + Bus"))
+        self.busRadioButton.setText(_translate("JourneyPlannerGUI", "Bus Only"))
+        self.mrtBusRadioButton.setText(_translate("JourneyPlannerGUI", "MRT + Bus"))
         self.routeSelectionGroupBox.setTitle(_translate("JourneyPlannerGUI", "Route Selection"))
-        self.djisktraStopsLabel.setText(_translate("JourneyPlannerGUI", "djisktraStopsLabel"))
-        self.djisktraDistLabel.setText(_translate("JourneyPlannerGUI", "djisktraDistLabel"))
-        self.djisktraTimeLabel.setText(_translate("JourneyPlannerGUI", "djisktraTimeLabel"))
-        self.djisktraTransferLabel.setText(_translate("JourneyPlannerGUI", "djisktraTransferLabel"))
-        self.djisktraPlotButton.setText(_translate("JourneyPlannerGUI", "Plot"))
+        self.dijkstraStopsLabel.setText(_translate("JourneyPlannerGUI", "dijkstraStopsLabel"))
+        self.dijkstraDistLabel.setText(_translate("JourneyPlannerGUI", "dijkstraDistLabel"))
+        self.dijkstraTimeLabel.setText(_translate("JourneyPlannerGUI", "dijkstraTimeLabel"))
+        self.dijkstraTransferLabel.setText(_translate("JourneyPlannerGUI", "dijkstraTransferLabel"))
+        self.dijkstraPlotButton.setText(_translate("JourneyPlannerGUI", "Plot"))
         self.bfsStopsLabel.setText(_translate("JourneyPlannerGUI", "bfsStopsLabel"))
         self.bfsDistLabel.setText(_translate("JourneyPlannerGUI", "bfsDistLabel"))
         self.bfsPlotButton.setText(_translate("JourneyPlannerGUI", "Plot"))
@@ -109,11 +110,11 @@ class Ui_JourneyPlannerGUI(object):
         mrt_string = " (MRT Station)"
         bus_string = " (Bus Stop)"
 
-        train_data = pd.read_json("Algorithm & API calls\mrtstops.json")
+        train_data = pd.read_json("mrtstops.json")
         station_list = train_data['Description'].values.tolist()
         station_list = [s + mrt_string for s in station_list]
 
-        bus_data = pd.read_json("Algorithm & API calls\\busstops.json")
+        bus_data = pd.read_json("busstops.json")
         bus_list = bus_data['Description'].values.tolist()
         bus_list = [s + bus_string for s in bus_list]
 
@@ -121,6 +122,31 @@ class Ui_JourneyPlannerGUI(object):
         full_list = list(dict.fromkeys(full_list))
 
         return full_list
+
+    def findRoute(self):
+        if self.mrtRadioButton.isChecked():
+            pass
+        elif self.busRadioButton.isChecked():
+            start_location = self.startLocationTextBox.text()
+            start_location = start_location.replace(" (Bus Stop)", "")
+            end_location = self.endLocationTextBox.text()
+            end_location = end_location.replace(" (Bus Stop)", "")
+
+            results = dijkstra_bus(start_location, end_location)
+
+            self.dijkstraStopsLabel.setText("Stops: " + str(results[1]))
+            self.dijkstraDistLabel.setText("Distance: " + str(results[2]))
+            self.dijkstraTimeLabel.setText("Time Needed: " + str(results[3]))
+            self.dijkstraTransferLabel.setText("Transfers Needed: " + str(results[4]))
+
+            print(results)
+
+        elif self.mrtBusRadioButton.isChecked():
+            pass
+        else:
+            error_dialog = QtWidgets.QErrorMessage()
+            error_dialog.showMessage('Please select mode of transportation!')
+            error_dialog.exec_()
 
 
 if __name__ == "__main__":
@@ -137,4 +163,5 @@ if __name__ == "__main__":
     ui.endLocationTextBox.setCompleter(completer)
 
     JourneyPlannerGUI.show()
+
     sys.exit(app.exec_())
