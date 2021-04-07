@@ -89,4 +89,4 @@ def bfs_mrt(start, end):
 
     result_list = [result_array, len(path)-1, transfer_counter]
 
-    print(result_list)
+    return result_list
