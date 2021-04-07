@@ -3,6 +3,7 @@ import json
 import pprint
 from datetime import datetime, timedelta
 import math
+import heapq
 
 def dijkstra_bus(start, end):
 
@@ -65,8 +66,9 @@ def dijkstra_bus(start, end):
             graph[curr_code][(next_code, service)] = distance
 
     print ("Running Dijkstras Shortest Algorithm for Buses...\n")
+
     def dijkstras(graph, start, end):
-        import heapq
+
         seen = set()
         # maintain a queue of paths
         queue = []

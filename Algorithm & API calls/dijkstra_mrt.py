@@ -3,10 +3,12 @@ import json
 import pprint
 from datetime import datetime, timedelta
 import math
+import heapq
 
 def dijkstra_mrt(start, end):
 
     result_array = []
+
     current_time = int(1200)
     cost_per_stop = float(10)
     cost_per_transfer = float(50) #simulate inconvinience to change buses
@@ -55,7 +57,6 @@ def dijkstra_mrt(start, end):
     print ("Running Dijkstras Algorithm for MRT...\n")
 
     def dijkstras(graph, start, end):
-        import heapq
         seen = set()
         # maintain a queue of paths
         queue = []
