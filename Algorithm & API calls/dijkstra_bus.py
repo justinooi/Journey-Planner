@@ -105,8 +105,8 @@ def dijkstra_bus(start, end):
         if service is None:
             service = (0,0)
 
-        if stop_code_map[code]["Latitude"] == "0" and stop_code_map[code]["Longitude"] == "0":
-            pass
+        if stop_code_map[code]["Latitude"] == 0 and stop_code_map[code]["Longitude"] == 0:
+            continue
 
         latlng_tuple = (stop_code_map[code]["Latitude"], stop_code_map[code]["Longitude"])
         result_tuple = (latlng_tuple, service[0], stop_code_map[code]["Description"])

@@ -100,6 +100,6 @@ def dijkstra_mrt(start, end):
 
     time = (distance / 50) * 60
 
-    result_list = [result_array, len(path), distance, time, transfers - 1]
+    result_list = [result_array, len(path)-1, distance, time, transfers - 1]
 
     return result_list

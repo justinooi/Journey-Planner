@@ -58,6 +58,8 @@ def bfs_bus(start, end):
         for (service, direction), route in routes_map.items():
             for j in range(len(route) - 1):
                 if path[i] == route[j]["BusStopCode"]:
+                    if stop_code_map[path[i]]["Latitude"] == 0 and stop_code_map[path[i]]["Longitude"] == 0:
+                        return None
                     return (
                         (stop_code_map[path[i]]["Latitude"], stop_code_map[path[i]]["Longitude"]),
                         service,
@@ -84,12 +86,12 @@ def bfs_bus(start, end):
             transfer_counter += 1
 
     for i in range(len(path)):
-        result_array.append(get_path(i))
+        if get_path(i) is None:
+            continue
+        else:
+            result_array.append(get_path(i))
 
     print(len(path))
     result_list = [result_array, len(path) - 1, transfer_counter]
 
     return result_list
-
-if __name__ == '__main__':
-    print(bfs_bus("Ang Mo Kio Int", "Bishan Int"))
