@@ -103,12 +103,12 @@ def dijkstra_bus(start, end):
         if service is None:
             service = (0,0)
 
-        result_tuple = (stop_code_map[code]["Latitude"], stop_code_map[code]["Longitude"], service[0], stop_code_map[code]["Description"])
+        latlng_tuple = (stop_code_map[code]["Latitude"], stop_code_map[code]["Longitude"])
+        result_tuple = (latlng_tuple, service[0], stop_code_map[code]["Description"])
         result_array.append(result_tuple)
 
     time = (distance/50)*60
 
     result_list = [result_array, len(path), distance, time, transfers-1]
-    print(result_list)
 
     return result_list
