@@ -73,6 +73,10 @@ def bfs_bus(start, end):
                     )
 
     for code in path:
+
+        if stop_code_map[code]["Latitude"] == "0" and stop_code_map[code]["Longitude"] == "0":
+            pass
+
         latlng_tuple = (stop_code_map[code]["Latitude"], stop_code_map[code]["Longitude"])
         result_tuple = (latlng_tuple, service[0], stop_code_map[code]["Description"])
         result_array.append(result_tuple)
@@ -94,3 +98,6 @@ def bfs_bus(start, end):
     result_list = [result_array, len(path) - 1, transfer_counter]
 
     return result_list
+
+if __name__ == '__main__':
+    print(bfs_bus('Orchard Stn', 'Asiatic Agricultural Ind'))
