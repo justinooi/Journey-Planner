@@ -10,9 +10,7 @@ def dijkstra_bus(start, end):
 
     current_time = int(1200)
     cost_per_stop = float(10)
-    cost_per_transfer = float(200) #simulate inconvinience to change buses
-    cost_per_stop = float(1)
-    cost_per_transfer = float(20)
+    cost_per_transfer = float(50) #simulate inconvinience to change buses
     print ("Loading Transport Data...\n")
 
     stops = json.loads(open("busstops.json").read())
