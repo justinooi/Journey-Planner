@@ -71,7 +71,7 @@ def bfs_mrt(start, end):
 
     print(result_array)
 
-    result_list = [result_array, len(path)-1, ]
+    result_list = [result_array, len(path)-1,(len(service) ]
 
     for i in range(len(path) - 1):
         print (find_service(i))
