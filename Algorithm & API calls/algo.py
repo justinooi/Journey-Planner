@@ -1,24 +1,38 @@
 import sys
 import json
 import pprint
+from datetime import datetime, timedelta
+import math
 
 start = input("Enter your starting Bus station :\n")
 end = input("Enter your ending Bus station \n")
 current_time = int(1200)
-cost_per_stop = float(10)
-cost_per_transfer = float(200) #simulate inconvinience to change buses
+cost_per_stop = float(1)
+cost_per_transfer = float(20)
 print ("Loading Transport Data...\n")
 
 stops = json.loads(open("busstops.json").read())
+services = json.loads(open("services.json").read())
 routes = json.loads(open("routes.json").read())
 
-print ("Initializing  tables...\n")
+print ("Initializing  tables..,\n")
 stop_desc_map = {stop["Description"]: stop for stop in stops}
 stop_code_map = {stop["BusStopCode"]: stop for stop in stops}
 
 routes_map = {}
 
 for route in routes:
+    try:
+        first_bus = int(route["WD_FirstBus"])
+        last_bus = int(route["WD_LastBus"])
+    except:
+        continue
+    if first_bus <= last_bus:
+        if not (first_bus <= current_time <= last_bus):
+            continue
+    if first_bus > last_bus:
+        if (last_bus <= current_time <= first_bus):
+            continue
 
     key = (route["ServiceNo"], route["Direction"])
     if key not in routes_map:
@@ -94,6 +108,15 @@ for code, service in path:
     print (service, stop_code_map[code]["Description"])
 print (len(path), "stops")
 print ("cost", cost)
-print (("The trip takes"), distance, ("km\n"))
-print ("transfers:", transfers-1)
+print (("The trip takes"), math.trunc(distance), ("km\n"))
+time = (distance/50)*60
+print (("The trip takes an estimate of "), math.trunc(time), ("minutes."))
+print ("Your journey would take transfers\n", transfers)
 
+estTime = (datetime.now()) + timedelta(hours=(time/60))
+truncatedTime = estTime.strftime("%d/%m/%Y %H:%M:%S")
+print ("You will reach your destination at:\n", truncatedTime)
+
+############################################################################################################################
+#NEXT ALGORITHM
+###################################################################################B
