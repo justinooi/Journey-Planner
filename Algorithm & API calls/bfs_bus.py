@@ -53,14 +53,23 @@ def bfs_bus(start, end):
                 queue.append(new_path)
 
     path = bfs(graph, stop_desc_map[start]["BusStopCode"], stop_desc_map[end]["BusStopCode"])
+
+    def get_path(i):
+        for (service, direction), route in routes_map.items():
+            for j in range(len(route) - 1):
+                if path[i] == route[j]["BusStopCode"]:
+                    return (
+                        (stop_code_map[path[i]]["Latitude"], stop_code_map[path[i]]["Longitude"]),
+                        service,
+                        stop_code_map[path[i]]["Description"]
+                    )
+
     def find_service(i):
         for (service, direction), route in routes_map.items():
-            for j in range(len(route)-1):
-                if path[i] == route[j]["BusStopCode"] and path[i+1] == route[j+1]["BusStopCode"]:
+            for j in range(len(route) - 1):
+                if path[i] == route[j]["BusStopCode"] and path[i + 1] == route[j + 1]["BusStopCode"]:
                     return (
-                        service,
-                        stop_code_map[path[i]]["Description"],
-                        stop_code_map[path[i + 1]]["Description"]
+                        service
                     )
 
     for code in path:
@@ -68,10 +77,20 @@ def bfs_bus(start, end):
         result_tuple = (latlng_tuple, service[0], stop_code_map[code]["Description"])
         result_array.append(result_tuple)
 
-    print(result_array)
-
-    result_list = [result_array, len(path)-1,(len(service) ]
+    transfer_counter = 0
 
     for i in range(len(path) - 1):
-        print (find_service(i))
-    print (len(path), "stops")
+        past_service = None
+        if i > 0:
+            past_service = find_service(i - 1)
+        service = find_service(i)
+
+        if service is not past_service and past_service is not None:
+            transfer_counter += 1
+
+    for i in range(len(path)):
+        result_array.append(get_path(i))
+
+    result_list = [result_array, len(path) - 1, transfer_counter]
+
+    print(result_list)

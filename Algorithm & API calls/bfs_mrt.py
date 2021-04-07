@@ -54,25 +54,39 @@ def bfs_mrt(start, end):
 
     path = bfs(graph, stop_desc_map[start]["MRTCode"], stop_desc_map[end]["MRTCode"])
 
-    def find_service(i):
+    def get_path(i):
         for (service, direction), route in routes_map.items():
             for j in range(len(route)-1):
-                if path[i] == route[j]["MRTCode"] and path[i+1] == route[j+1]["MRTCode"]:
+                if path[i] == route[j]["MRTCode"]:
                     return (
+                        (stop_code_map[path[i]]["Latitude"], stop_code_map[path[i]]["Longitude"]),
                         service,
-                        stop_code_map[path[i]]["Description"],
-                        stop_code_map[path[i + 1]]["Description"]
+                        stop_code_map[path[i]]["Description"]
                     )
 
-    for code in path:
-        latlng_tuple = (stop_code_map[code]["Latitude"], stop_code_map[code]["Longitude"])
-        result_tuple = (latlng_tuple, service[0], stop_code_map[code]["Description"])
-        result_array.append(result_tuple)
+    def find_service(i):
+        for (service, direction), route in routes_map.items():
+            for j in range(len(route) - 1):
+                if path[i] == route[j]["MRTCode"] and path[i+1] == route[j+1]["MRTCode"]:
+                    return (
+                        service
+                    )
 
-    print(result_array)
-
-    result_list = [result_array, len(path)-1, ]
+    transfer_counter = 0
 
     for i in range(len(path) - 1):
-        print (find_service(i))
-    print (len(path), "stops")
+        past_service = None
+        if i > 0:
+            past_service = find_service(i - 1)
+        service = find_service(i)
+        if service == "CC-MRT" and past_service == "CE-MRT":
+            pass
+        elif service is not past_service and past_service is not None:
+            transfer_counter += 1
+
+    for i in range(len(path)):
+        result_array.append(get_path(i))
+
+    result_list = [result_array, len(path)-1, transfer_counter]
+
+    print(result_list)
