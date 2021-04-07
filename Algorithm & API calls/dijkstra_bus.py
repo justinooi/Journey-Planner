@@ -5,6 +5,9 @@ from datetime import datetime, timedelta
 import math
 
 def dijkstra_bus(start, end):
+
+    result_array = []
+
     current_time = int(1200)
     cost_per_stop = float(10)
     cost_per_transfer = float(200) #simulate inconvinience to change buses
@@ -98,19 +101,16 @@ def dijkstra_bus(start, end):
     (cost, distance, transfers, path) = dijkstras(graph, stop_desc_map[start]["BusStopCode"], stop_desc_map[end]["BusStopCode"])
 
     for code, service in path:
-        print (service, stop_code_map[code]["Description"])
 
+        if service is None:
+            service = (0,0)
 
-    print (len(path), "stops")
-    print ("cost", cost)
-    print (("The trip takes"), math.trunc(distance), ("km\n"))
+        result_tuple = (stop_code_map[code]["Latitude"], stop_code_map[code]["Longitude"], service[0], stop_code_map[code]["Description"])
+        result_array.append(result_tuple)
+
     time = (distance/50)*60
-    print (("The trip takes an estimate of "), math.trunc(time), ("minutes."))
-    print ("transfers:", transfers-1)
-    estTime = (datetime.now()) + timedelta(hours=(time/60))
-    truncatedTime = estTime.strftime("%d/%m/%Y %H:%M:%S")
-    print ("You will reach your destination at:\n",truncatedTime)
 
-    result_list = [path, len(path), distance, time, transfers-1]
+    result_list = [result_array, len(path), distance, time, transfers-1]
+    print(result_list)
 
     return result_list
