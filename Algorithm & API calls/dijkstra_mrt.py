@@ -23,17 +23,6 @@ stop_code_map = {stop["MRTCode"]: stop for stop in stops}
 routes_map = {}
 
 for route in routes:
-    try:
-        first_bus = int(route["WD_FirstBus"])
-        last_bus = int(route["WD_LastBus"])
-    except:
-        continue
-    if first_bus <= last_bus:
-        if not (first_bus <= current_time <= last_bus):
-            continue
-    if first_bus > last_bus:
-        if (last_bus <= current_time <= first_bus):
-            continue
 
     key = (route["ServiceNo"], route["Direction"])
     if key not in routes_map:
@@ -56,16 +45,15 @@ for service, path in routes_map.items():
             graph[key] = {}
         curr_route_stop = path[route_index]
         next_route_stop = path[route_index + 1]
-        curr_distance = curr_route_stop["Distance"] and 0
-        next_distance = next_route_stop["Distance"] and curr_distance
+        curr_distance = curr_route_stop["Distance"] or 0
+        next_distance = next_route_stop["Distance"] or curr_distance
         distance = next_distance - curr_distance
         assert distance >= 0, (curr_route_stop, next_route_stop)
         curr_code = curr_route_stop["MRTCode"]
         next_code = next_route_stop["MRTCode"]
         graph[curr_code][(next_code, service)] = distance
-
-print ("Running Dijkstras Shortest Algorithm for MRT...\n")
-
+        
+print ("Running Dijkstras Algorithm for MRT...\n")
 def dijkstras(graph, start, end):
     import heapq
     seen = set()
