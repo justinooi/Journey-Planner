@@ -30,6 +30,7 @@ def bfs_mrt(start, end):
             if key not in graph:
                 graph[key] = set()
             graph[path[route_index]["MRTCode"]].add(path[route_index + 1]["MRTCode"])
+            graph[path[route_index]["MRTCode"]].add(path[route_index - 1]["MRTCode"])
 
     print ("Running BFS....\n")
 
@@ -91,5 +92,5 @@ def bfs_mrt(start, end):
         result_array.append(get_path(i))
 
     result_list = [result_array, len(path)-1, transfer_counter]
-    print(result_list)
+
     return result_list
