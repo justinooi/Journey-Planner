@@ -280,8 +280,6 @@
     {"ServiceNo": "DT-MRT", "Direction": 2, "StopSequence": 4, "Operator": "SMRT, MRT","MRTCode": "29", "Latitude": 1.354467, "Longitude": 103.943325, "Distance": 0},
     {"ServiceNo": "DT-MRT", "Direction": 2, "StopSequence": 3, "Operator": "SMRT, MRT","MRTCode": "117", "Latitude": 1.35631, "Longitude": 103.955471,"Distance": 0},
     {"ServiceNo": "DT-MRT", "Direction": 2, "StopSequence": 2, "Operator": "SMRT, MRT","MRTCode": "118", "Latitude": 1.342218, "Longitude": 103.961505,"Distance": 0},
-    {"ServiceNo": "DT-MRT", "Direction": 2, "StopSequence": 1, "Operator": "SMRT, MRT","MRTCode": "119", "Latitude": 1.291631, "Longitude": 103.844621,"Distance": 0},
-
-   
+    {"ServiceNo": "DT-MRT", "Direction": 2, "StopSequence": 1, "Operator": "SMRT, MRT","MRTCode": "119", "Latitude": 1.291631, "Longitude": 103.844621,"Distance": 0}
 
 ]
