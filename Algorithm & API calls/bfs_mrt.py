@@ -74,7 +74,10 @@ def bfs_mrt(start, end):
 
     transfer_counter = 0
 
-    for i in range(len(path) - 1):
+    if len(path) is None:
+        path.append('0')
+
+    for i in range(len(path)-1):
         past_service = None
         if i > 0:
             past_service = find_service(i - 1)
@@ -88,5 +91,5 @@ def bfs_mrt(start, end):
         result_array.append(get_path(i))
 
     result_list = [result_array, len(path)-1, transfer_counter]
-
+    print(result_list)
     return result_list

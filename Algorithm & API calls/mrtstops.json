@@ -19,7 +19,7 @@
     {"MRTCode": "19", "Description": "Novena", "Latitude": 1.320089, "Longitude": 103.843405},
     {"MRTCode": "20", "Description": "Newton", "Latitude": 1.31383, "Longitude": 103.838021},
     {"MRTCode": "21", "Description": "Orchard", "Latitude": 1.304041, "Longitude": 103.831792},
-    {"MRTCode": "22", "Description": " Somerset", "Latitude": 1.300508, "Longitude": 103.838428},
+    {"MRTCode": "22", "Description": "Somerset", "Latitude": 1.300508, "Longitude": 103.838428},
     {"MRTCode": "23", "Description": "Dhoby Ghaut", "Latitude": 1.299169, "Longitude": 103.845799},
     {"MRTCode": "24", "Description": "City Hall", "Latitude": 1.293119, "Longitude": 103.852089},
     {"MRTCode": "25", "Description": "Raffles Place", "Latitude": 1.284001, "Longitude": 103.85155},
@@ -101,9 +101,9 @@
     {"MRTCode": "88", "Description": "Potong Pasir", "Latitude": 1.331316, "Longitude": 103.868779},
     {"MRTCode": "89", "Description": "Woodleigh", "Latitude": 1.339202, "Longitude": 103.870727},
     {"MRTCode": "68", "Description": "Serangoon", "Latitude": 1.349862, "Longitude": 103.873635},
-    {"MRTCode": "90", "Description": "Kovan", "Latitude": 1.371406, "Longitude": 103.892533},
-    {"MRTCode": "91", "Description": "Hougang", "Latitude": 1.382991, "Longitude": 103.893347},
-    {"MRTCode": "92", "Description": "Buangkok", "Latitude": 1.349862, "Longitude": 103.873635},
+    {"MRTCode": "90", "Description": "Kovan", "Latitude": 1.360207, "Longitude": 103.885163},
+    {"MRTCode": "91", "Description": "Hougang", "Latitude": 1.371406, "Longitude": 103.892533},
+    {"MRTCode": "92", "Description": "Buangkok", "Latitude": 1.382991, "Longitude": 103.893347},
     {"MRTCode": "93", "Description": "Seng Kang", "Latitude": 1.391682, "Longitude": 103.895475},
     {"MRTCode": "94", "Description": "Punggol", "Latitude": 1.405191, "Longitude": 103.902367},
     {"MRTCode": "95", "Description": "Bukit Panjang", "Latitude": 1.37834, "Longitude": 103.762452},
@@ -119,7 +119,7 @@
     {"MRTCode": "85", "Description": "Little India", "Latitude": 1.306691, "Longitude": 103.849396},
     {"MRTCode": "103", "Description": "Rochor", "Latitude": 1.303601, "Longitude": 103.852581},
     {"MRTCode": "39", "Description": "Bugis", "Latitude": 1.300747, "Longitude": 103.855873},
-    {"MRTCode": "23", "Description": "Promenade", "Latitude": 1.299169, "Longitude": 103.845799},
+    {"MRTCode": "23", "Description": "Dhoby Ghaut", "Latitude": 1.299169, "Longitude": 103.845799},
     {"MRTCode": "82", "Description": "Bayfront", "Latitude": 1.281371, "Longitude": 103.858998},
     {"MRTCode": "104", "Description": "Downtown", "Latitude": 1.27949, "Longitude": 103.852802},
     {"MRTCode": "105", "Description": "Telok Ayer", "Latitude": 1.282285, "Longitude": 103.848584},
@@ -139,6 +139,6 @@
     {"MRTCode": "29", "Description": "Tampines", "Latitude": 1.354467, "Longitude": 103.943325},
     {"MRTCode": "117", "Description": "Tampines East", "Latitude": 1.35631, "Longitude": 103.955471},
     {"MRTCode": "118", "Description": "Upper Changi", "Latitude": 1.342218, "Longitude": 103.961505},
-    {"MRTCode": "119", "Description": "Expo", "Latitude": 1.291631, "Longitude": 103.844621}]
+    {"MRTCode": "119", "Description": "Expo", "Latitude": 1.334479, "Longitude": 103.961459}]
 
 

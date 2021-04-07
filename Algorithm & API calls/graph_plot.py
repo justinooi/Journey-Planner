@@ -59,8 +59,7 @@ class plot_graph:
 
     def mrt_dijs(self, start, end):
         latlng = []
-        result_list = bfs_mrt(start, end)
-        # print(result_list)
+        result_list = dijkstra_mrt(start, end)
         for i in range(len(result_list[0])):
             latlng.append(result_list[0][i][0])
 
@@ -85,7 +84,6 @@ class plot_graph:
     def mrt_bfs(self, start, end):
         latlng = []
         result_list = bfs_mrt(start, end)
-        # print(result_list)
         for i in range(len(result_list[0])):
             latlng.append(result_list[0][i][0])
 

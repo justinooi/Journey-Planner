@@ -48,7 +48,7 @@ def dijkstra_mrt(start, end):
             next_route_stop = path[route_index + 1]
             curr_distance = curr_route_stop["Distance"] or 0
             next_distance = next_route_stop["Distance"] or curr_distance
-            distance = next_distance - curr_distance
+            distance = abs(next_distance - curr_distance)
             assert distance >= 0, (curr_route_stop, next_route_stop)
             curr_code = curr_route_stop["MRTCode"]
             next_code = next_route_stop["MRTCode"]
@@ -101,5 +101,4 @@ def dijkstra_mrt(start, end):
     time = (distance / 50) * 60
 
     result_list = [result_array, len(path)-1, distance, time, transfers - 1]
-
     return result_list

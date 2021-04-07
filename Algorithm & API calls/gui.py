@@ -9,7 +9,6 @@ from bfs_mrt import bfs_mrt
 from graph_plot import plot_graph
 import pandas as pd
 
-
 class Ui_JourneyPlannerGUI(object):
     def setupUi(self, JourneyPlannerGUI):
         JourneyPlannerGUI.setObjectName("JourneyPlannerGUI")
@@ -62,20 +61,14 @@ class Ui_JourneyPlannerGUI(object):
         self.bfsStopsLabel = QtWidgets.QLabel(self.routeSelectionGroupBox)
         self.bfsStopsLabel.setGeometry(QtCore.QRect(320, 160, 141, 16))
         self.bfsStopsLabel.setObjectName("bfsStopsLabel")
-        self.bfsDistLabel = QtWidgets.QLabel(self.routeSelectionGroupBox)
-        self.bfsDistLabel.setGeometry(QtCore.QRect(320, 180, 141, 16))
-        self.bfsDistLabel.setObjectName("bfsDistLabel")
         self.listView_2 = QtWidgets.QListWidget(self.routeSelectionGroupBox)
         self.listView_2.setGeometry(QtCore.QRect(10, 160, 301, 131))
         self.listView_2.setObjectName("listView_2")
         self.bfsPlotButton = QtWidgets.QPushButton(self.routeSelectionGroupBox)
         self.bfsPlotButton.setGeometry(QtCore.QRect(320, 240, 141, 51))
         self.bfsPlotButton.setObjectName("bfsPlotButton")
-        self.bfsTimeLabel = QtWidgets.QLabel(self.routeSelectionGroupBox)
-        self.bfsTimeLabel.setGeometry(QtCore.QRect(320, 200, 141, 16))
-        self.bfsTimeLabel.setObjectName("bfsTimeLabel")
         self.bfsTransferLabel = QtWidgets.QLabel(self.routeSelectionGroupBox)
-        self.bfsTransferLabel.setGeometry(QtCore.QRect(320, 220, 141, 16))
+        self.bfsTransferLabel.setGeometry(QtCore.QRect(320, 180, 141, 16))
         self.bfsTransferLabel.setObjectName("bfsTransferLabel")
 
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
@@ -86,7 +79,6 @@ class Ui_JourneyPlannerGUI(object):
         self.htmlView.setObjectName("htmlView")
         self.webEngineView = QWebEngineView()
         self.htmlView.addWidget(self.webEngineView)
-
 
         JourneyPlannerGUI.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(JourneyPlannerGUI)
@@ -116,9 +108,7 @@ class Ui_JourneyPlannerGUI(object):
         self.dijkstraTransferLabel.setText(_translate("JourneyPlannerGUI", ""))
         self.dijkstraPlotButton.setText(_translate("JourneyPlannerGUI", "Plot"))
         self.bfsStopsLabel.setText(_translate("JourneyPlannerGUI", ""))
-        self.bfsDistLabel.setText(_translate("JourneyPlannerGUI", ""))
         self.bfsPlotButton.setText(_translate("JourneyPlannerGUI", "Plot"))
-        self.bfsTimeLabel.setText(_translate("JourneyPlannerGUI", ""))
         self.bfsTransferLabel.setText(_translate("JourneyPlannerGUI", ""))
 
     def getAutoCompleteData(self):
@@ -205,10 +195,26 @@ class Ui_JourneyPlannerGUI(object):
             end_location = end_location.replace(" (MRT Station)", "")
 
             results = dijkstra_mrt(start_location, end_location)
-            results2 = bfs_mrt(start_location, end_location)
 
-            print(results)
-            print(results2)
+            try:
+                results2 = bfs_mrt(start_location, end_location)
+
+                self.bfsStopsLabel.setText("Stops: " + str(results2[1]))
+                self.bfsTransferLabel.setText("Transfers: " + str(results2[2]))
+
+                for j in range(len(results2[0])):
+                    item = QListWidgetItem(results2[0][j][2])
+                    self.listView_2.addItem(item)
+
+            except Exception as ex:
+
+                template = "An exception of type {0} occurred. Arguments:\n{1!r}"
+                message = template.format(type(ex).__name__, ex.args)
+                print(message)
+
+                error_dialog = QtWidgets.QErrorMessage()
+                error_dialog.showMessage('Recursion Depth Reached. No route found using BFS.')
+                error_dialog.exec_()
 
             self.dijkstraStopsLabel.setText("Stops: " + str(results[1]))
             self.dijkstraDistLabel.setText("Distance: " + str(results[2]))
@@ -219,12 +225,6 @@ class Ui_JourneyPlannerGUI(object):
                 item = QListWidgetItem(results[0][i][2])
                 self.listView.addItem(item)
 
-            self.bfsStopsLabel.setText("Stops: " + str(results2[1]))
-            self.bfsTransferLabel.setText("Transfers: " + str(results2[2]))
-
-            for j in range(len(results2[0])):
-                item = QListWidgetItem(results2[0][j][2])
-                self.listView_2.addItem(item)
 
         elif self.busRadioButton.isChecked():
             start_location = self.startLocationTextBox.text()
