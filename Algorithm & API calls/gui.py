@@ -212,10 +212,6 @@ class Ui_JourneyPlannerGUI(object):
                 message = template.format(type(ex).__name__, ex.args)
                 print(message)
 
-                error_dialog = QtWidgets.QErrorMessage()
-                error_dialog.showMessage('Recursion Depth Reached. No route found using BFS.')
-                error_dialog.exec_()
-
             self.dijkstraStopsLabel.setText("Stops: " + str(results[1]))
             self.dijkstraDistLabel.setText("Distance: " + str(results[2]))
             self.dijkstraTimeLabel.setText("Time Needed: " + str(results[3]))
