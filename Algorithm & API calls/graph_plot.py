@@ -75,8 +75,24 @@ class plot_graph:
                               color='green', icon=folium.Icon(color='green', icon='info-sign'), radius=8).add_to(
                     dij_mrt)
                 folium.PolyLine(locations=latlng).add_to(dij_mrt)
-            else:
-                folium.Marker(location=[latlng[i][0], latlng[i][1]], popup=str(result_list[0][i][1])+'\n'+str(result_list[0][i][2]), radius=8).add_to(
+            elif result_list[0][i][1]=='NS-MRT':
+                folium.Marker(location=[latlng[i][0], latlng[i][1]], popup=str(result_list[0][i][1])+'\n'+str(result_list[0][i][2]),icon=folium.Icon(color='red', icon='fa-train', prefix ='fa'), radius=8).add_to(
+                    dij_mrt)
+                folium.PolyLine(locations=latlng).add_to(dij_mrt)
+            elif result_list[0][i][1]=='EW-MRT':
+                folium.Marker(location=[latlng[i][0], latlng[i][1]], popup=str(result_list[0][i][1])+'\n'+str(result_list[0][i][2]),icon=folium.Icon(color='green', icon='fa-train', prefix ='fa'), radius=8).add_to(
+                    dij_mrt)
+                folium.PolyLine(locations=latlng).add_to(dij_mrt)
+            elif result_list[0][i][1]=='NE-MRT':
+                folium.Marker(location=[latlng[i][0], latlng[i][1]], popup=str(result_list[0][i][1])+'\n'+str(result_list[0][i][2]),icon=folium.Icon(color='purple', icon='fa-train', prefix ='fa'), radius=8).add_to(
+                    dij_mrt)
+                folium.PolyLine(locations=latlng).add_to(dij_mrt)
+            elif result_list[0][i][1]=='CC-MRT':
+                folium.Marker(location=[latlng[i][0], latlng[i][1]], popup=str(result_list[0][i][1])+'\n'+str(result_list[0][i][2]),icon=folium.Icon(color='orange', icon='fa-train', prefix ='fa'), radius=8).add_to(
+                    dij_mrt)
+                folium.PolyLine(locations=latlng).add_to(dij_mrt)
+            elif result_list[0][i][1]=='DT-MRT':
+                folium.Marker(location=[latlng[i][0], latlng[i][1]], popup=str(result_list[0][i][1])+'\n'+str(result_list[0][i][2]),icon=folium.Icon(color='blue', icon='fa-train', prefix ='fa'), radius=8).add_to(
                     dij_mrt)
                 folium.PolyLine(locations=latlng).add_to(dij_mrt)
         dij_mrt.save("dij_mrt.html")
@@ -99,8 +115,24 @@ class plot_graph:
                               color='green', icon=folium.Icon(color='green', icon='info-sign'), radius=8).add_to(
                     mrt_bfs)
                 folium.PolyLine(locations=latlng).add_to(mrt_bfs)
-            else:
-                folium.Marker(location=[latlng[i][0], latlng[i][1]], popup=str(result_list[0][i][1])+'\n'+str(result_list[0][i][2]), radius=8).add_to(
+            elif result_list[0][i][1]=='NS-MRT':
+                folium.Marker(location=[latlng[i][0], latlng[i][1]], popup=str(result_list[0][i][1])+'\n'+str(result_list[0][i][2]),icon=folium.Icon(color='red', icon='fa-train', prefix ='fa'), radius=8).add_to(
+                    mrt_bfs)
+                folium.PolyLine(locations=latlng).add_to(mrt_bfs)
+            elif result_list[0][i][1]=='EW-MRT':
+                folium.Marker(location=[latlng[i][0], latlng[i][1]], popup=str(result_list[0][i][1])+'\n'+str(result_list[0][i][2]),icon=folium.Icon(color='green', icon='fa-train', prefix ='fa'), radius=8).add_to(
+                    mrt_bfs)
+                folium.PolyLine(locations=latlng).add_to(mrt_bfs)
+            elif result_list[0][i][1]=='NE-MRT':
+                folium.Marker(location=[latlng[i][0], latlng[i][1]], popup=str(result_list[0][i][1])+'\n'+str(result_list[0][i][2]),icon=folium.Icon(color='purple', icon='fa-train', prefix ='fa'), radius=8).add_to(
+                    mrt_bfs)
+                folium.PolyLine(locations=latlng).add_to(mrt_bfs)
+            elif result_list[0][i][1]=='CC-MRT':
+                folium.Marker(location=[latlng[i][0], latlng[i][1]], popup=str(result_list[0][i][1])+'\n'+str(result_list[0][i][2]),icon=folium.Icon(color='orange', icon='fa-train', prefix ='fa'), radius=8).add_to(
+                    mrt_bfs)
+                folium.PolyLine(locations=latlng).add_to(mrt_bfs)
+            elif result_list[0][i][1]=='DT-MRT':
+                folium.Marker(location=[latlng[i][0], latlng[i][1]], popup=str(result_list[0][i][1])+'\n'+str(result_list[0][i][2]),icon=folium.Icon(color='blue', icon='fa-train', prefix ='fa'), radius=8).add_to(
                     mrt_bfs)
                 folium.PolyLine(locations=latlng).add_to(mrt_bfs)
         mrt_bfs.save("mrt_bfs.html")
