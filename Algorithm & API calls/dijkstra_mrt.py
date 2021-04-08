@@ -38,7 +38,7 @@ def dijkstra_mrt(start, end):
     print ("Initializing Graph...\n")
     graph = {}
     for service, path in routes_map.items():
-        # hack around broken data
+        # hack around broken data, in some cases, the API returns empty attributes, added to prevent null returns
         path.sort(key = lambda r: r["StopSequence"])
         for route_index in range(len(path) - 1):
             key = path[route_index]["MRTCode"]
@@ -63,9 +63,9 @@ def dijkstra_mrt(start, end):
         # push the first path into the queue
         heapq.heappush(queue, (0, 0, 0, [(start, None)]))
         while queue:
-            # get the first path from the queue
+            # gets first path from queue
             (curr_cost, curr_distance, curr_transfers, path) = heapq.heappop(queue)
-            # get the last node from the path
+            # gets last node from path
             (node, curr_service) = path[-1]
             # path found
             if node == end:
