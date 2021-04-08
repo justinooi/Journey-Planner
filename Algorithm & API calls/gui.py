@@ -279,20 +279,26 @@ class Ui_JourneyPlannerGUI(object):
         # Check which mode of transportation is done.
         if self.mrtRadioButton.isChecked():
 
-            # Reset list view.
-            self.listView.clear()
-            self.listView_2.clear()
-
             start_location = self.startLocationTextBox.text()
             start_location = start_location.replace(" (MRT Station)", "")
             end_location = self.endLocationTextBox.text()
             end_location = end_location.replace(" (MRT Station)", "")
 
+            # Error checking.
             if "(Bus Stop)" in start_location or "(Bus Stop)" in end_location:
                 error_dialog = QtWidgets.QErrorMessage()
                 error_dialog.showMessage('You cannot choose bus stops for MRT route!')
                 error_dialog.exec_()
                 return None
+            elif start_location == "" or end_location == "":
+                error_dialog = QtWidgets.QErrorMessage()
+                error_dialog.showMessage('You cannot leave blanks in start or end location!')
+                error_dialog.exec_()
+                return None
+
+            # Reset list view.
+            self.listView.clear()
+            self.listView_2.clear()
 
             # Load both dijkstra and bfs routes.
             results = dijkstra_mrt(start_location, end_location)
@@ -328,20 +334,26 @@ class Ui_JourneyPlannerGUI(object):
 
         elif self.busRadioButton.isChecked():
 
-            # Reset list view.
-            self.listView.clear()
-            self.listView_2.clear()
-
             start_location = self.startLocationTextBox.text()
             start_location = start_location.replace(" (Bus Stop)", "")
             end_location = self.endLocationTextBox.text()
             end_location = end_location.replace(" (Bus Stop)", "")
 
+            # Error checking.
             if "(MRT Station)" in start_location or "(MRT Station)" in end_location:
                 error_dialog = QtWidgets.QErrorMessage()
                 error_dialog.showMessage('You cannot choose MRT station for bus routes!')
                 error_dialog.exec_()
                 return None
+            elif start_location == "" or end_location == "":
+                error_dialog = QtWidgets.QErrorMessage()
+                error_dialog.showMessage('You cannot leave blanks in start or end location!')
+                error_dialog.exec_()
+                return None
+
+            # Reset list view.
+            self.listView.clear()
+            self.listView_2.clear()
 
             # Call BFS & dijkstra for bus.
             results = dijkstra_bus(start_location, end_location)
