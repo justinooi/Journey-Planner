@@ -18,7 +18,6 @@ def dijkstra_bus(start, end):
     routes = json.loads(open("routes.json").read())
 
     print("Initializing  tables...\n")
-    print("Initializing  tables..,\n")
     stop_desc_map = {stop["Description"]: stop for stop in stops}
     stop_code_map = {stop["BusStopCode"]: stop for stop in stops}
 
@@ -49,7 +48,7 @@ def dijkstra_bus(start, end):
     print("Initializing Graph...\n")
     graph = {}
     for service, path in routes_map.items():
-        # hack around broken data
+        # hack around broken data, in some cases, API datasets contain no attributes, added to prevent none errors
         path.sort(key=lambda r: r["StopSequence"])
         for route_index in range(len(path) - 1):
             key = path[route_index]["BusStopCode"]
