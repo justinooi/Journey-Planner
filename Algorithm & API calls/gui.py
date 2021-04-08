@@ -200,7 +200,7 @@ class Ui_JourneyPlannerGUI(object):
                 results2 = bfs_mrt(start_location, end_location)
 
                 self.bfsStopsLabel.setText("Stops: " + str(results2[1]))
-                self.bfsTransferLabel.setText("Transfers: " + str(results2[2]))
+                self.bfsTransferLabel.setText("Transfers Needed: " + str(results2[2]))
 
                 for j in range(len(results2[0])):
                     item = QListWidgetItem(results2[0][j][2])

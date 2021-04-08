@@ -56,6 +56,8 @@ def bfs_mrt(start, end):
             # enumerate all adjacent nodes, construct a new path and push it into the queue
             for adjacent in graph.get(node, []):
                 new_path = list(path)
+                if adjacent == '0':
+                    continue
                 new_path.append(adjacent)
                 queue.put(new_path)
 
@@ -100,3 +102,6 @@ def bfs_mrt(start, end):
     result_list = [result_array, len(path)-1, transfer_counter]
 
     return result_list
+
+if __name__ == '__main__':
+    print(bfs_mrt("Dhoby Ghaut", "Tuas Link"))

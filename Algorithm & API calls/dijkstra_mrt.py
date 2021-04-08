@@ -102,3 +102,6 @@ def dijkstra_mrt(start, end):
 
     result_list = [result_array, len(path)-1, distance, time, transfers - 1]
     return result_list
+
+if __name__ == '__main__':
+    dijkstra_mrt("Tuas Link", "Dhoby Ghaut")
