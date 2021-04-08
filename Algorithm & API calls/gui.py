@@ -86,16 +86,16 @@ class Ui_JourneyPlannerGUI(object):
         self.dijkstraPlotButton.setGeometry(QtCore.QRect(320, 100, 141, 51))
         self.dijkstraPlotButton.setObjectName("dijkstraPlotButton")
         self.dijkstraPlotButton.setStyleSheet("background-color:#FE1F16;\n"
-                                           "	                                            border-radius:6px;\n"
-                                           "	                                            border:1px solid #800000;\n"
-                                           "	                                            display:inline-block;\n"
-                                           "                                                cursor:pointer;\n"
-                                           "                                                color:#000000;\n"
-                                           "                                                font-family:Arial;\n"
-                                           "                                                font-size:10px;\n"
-                                           "                                                font-weight:bold;\n"
-                                           "                                                text-decoration:none;\n"
-                                           "text-shadow:0px 1px 0px #2f6627;")
+                                              "	                                            border-radius:6px;\n"
+                                              "	                                            border:1px solid #800000;\n"
+                                              "	                                            display:inline-block;\n"
+                                              "                                                cursor:pointer;\n"
+                                              "                                                color:#000000;\n"
+                                              "                                                font-family:Arial;\n"
+                                              "                                                font-size:10px;\n"
+                                              "                                                font-weight:bold;\n"
+                                              "                                                text-decoration:none;\n"
+                                              "text-shadow:0px 1px 0px #2f6627;")
         self.bfsStopsLabel = QtWidgets.QLabel(self.routeSelectionGroupBox)
         self.bfsStopsLabel.setGeometry(QtCore.QRect(320, 160, 141, 16))
         self.bfsStopsLabel.setObjectName("bfsStopsLabel")
@@ -106,16 +106,16 @@ class Ui_JourneyPlannerGUI(object):
         self.bfsPlotButton.setGeometry(QtCore.QRect(320, 240, 141, 51))
         self.bfsPlotButton.setObjectName("bfsPlotButton")
         self.bfsPlotButton.setStyleSheet("background-color:#0066ff;\n"
-                                           "	                                            border-radius:6px;\n"
-                                           "	                                            border:1px solid #000099;\n"
-                                           "	                                            display:inline-block;\n"
-                                           "                                                cursor:pointer;\n"
-                                           "                                                color:#000000;\n"
-                                           "                                                font-family:Arial;\n"
-                                           "                                                font-size:10px;\n"
-                                           "                                                font-weight:bold;\n"
-                                           "                                                text-decoration:none;\n"
-                                           "text-shadow:0px 1px 0px #2f6627;")
+                                         "	                                            border-radius:6px;\n"
+                                         "	                                            border:1px solid #000099;\n"
+                                         "	                                            display:inline-block;\n"
+                                         "                                                cursor:pointer;\n"
+                                         "                                                color:#000000;\n"
+                                         "                                                font-family:Arial;\n"
+                                         "                                                font-size:10px;\n"
+                                         "                                                font-weight:bold;\n"
+                                         "                                                text-decoration:none;\n"
+                                         "text-shadow:0px 1px 0px #2f6627;")
         self.bfsTransferLabel = QtWidgets.QLabel(self.routeSelectionGroupBox)
         self.bfsTransferLabel.setGeometry(QtCore.QRect(320, 180, 141, 16))
         self.bfsTransferLabel.setObjectName("bfsTransferLabel")
@@ -210,8 +210,7 @@ class Ui_JourneyPlannerGUI(object):
         # Create new graph class.
         graph_object = plot_graph()
 
-        # Check which algorithm is chosen and which mode of transporation is chosen.
-
+        # Check which algorithm is chosen and which mode of transportation is chosen.
         if self.mrtRadioButton.isChecked() and algorithm == "dijkstra":
 
             start_location = self.startLocationTextBox.text()
@@ -227,6 +226,7 @@ class Ui_JourneyPlannerGUI(object):
                 html = f.read()
                 self.webEngineView.setHtml(html)
 
+        # Dijkstra for bus.
         elif self.busRadioButton.isChecked() and algorithm == "dijkstra":
 
             start_location = self.startLocationTextBox.text()
@@ -242,6 +242,7 @@ class Ui_JourneyPlannerGUI(object):
                 html = f.read()
                 self.webEngineView.setHtml(html)
 
+        # BFS For MRT
         elif self.mrtRadioButton.isChecked() and algorithm == "bfs":
 
             start_location = self.startLocationTextBox.text()
@@ -257,6 +258,7 @@ class Ui_JourneyPlannerGUI(object):
                 html = f.read()
                 self.webEngineView.setHtml(html)
 
+        # BFS for Bus
         elif self.busRadioButton.isChecked() and algorithm == "bfs":
 
             start_location = self.startLocationTextBox.text()
@@ -277,6 +279,7 @@ class Ui_JourneyPlannerGUI(object):
         # Check which mode of transportation is done.
         if self.mrtRadioButton.isChecked():
 
+            # Reset list view.
             self.listView.clear()
             self.listView_2.clear()
 
@@ -284,6 +287,12 @@ class Ui_JourneyPlannerGUI(object):
             start_location = start_location.replace(" (MRT Station)", "")
             end_location = self.endLocationTextBox.text()
             end_location = end_location.replace(" (MRT Station)", "")
+
+            if "(Bus Stop)" in start_location or "(Bus Stop)" in end_location:
+                error_dialog = QtWidgets.QErrorMessage()
+                error_dialog.showMessage('You cannot choose bus stops for MRT route!')
+                error_dialog.exec_()
+                return None
 
             # Load both dijkstra and bfs routes.
             results = dijkstra_mrt(start_location, end_location)
@@ -317,9 +326,9 @@ class Ui_JourneyPlannerGUI(object):
                 item = QListWidgetItem(string_builder)
                 self.listView.addItem(item)
 
-
         elif self.busRadioButton.isChecked():
 
+            # Reset list view.
             self.listView.clear()
             self.listView_2.clear()
 
@@ -328,12 +337,17 @@ class Ui_JourneyPlannerGUI(object):
             end_location = self.endLocationTextBox.text()
             end_location = end_location.replace(" (Bus Stop)", "")
 
+            if "(MRT Station)" in start_location or "(MRT Station)" in end_location:
+                error_dialog = QtWidgets.QErrorMessage()
+                error_dialog.showMessage('You cannot choose MRT station for bus routes!')
+                error_dialog.exec_()
+                return None
+
+            # Call BFS & dijkstra for bus.
             results = dijkstra_bus(start_location, end_location)
             results2 = bfs_bus(start_location, end_location)
 
-            print(results)
-            print(results2)
-
+            # Update elements with route information.
             self.dijkstraStopsLabel.setText("Stops: " + str(results[1]))
             self.dijkstraDistLabel.setText("Distance: " + str(results[2]))
             self.dijkstraTimeLabel.setText("Time Needed: " + str(results[3]))
@@ -356,12 +370,14 @@ class Ui_JourneyPlannerGUI(object):
                 item = QListWidgetItem(string_builder)
                 self.listView_2.addItem(item)
 
+        # Error catch - check if user chose a mode of transportation.
         else:
             error_dialog = QtWidgets.QErrorMessage()
             error_dialog.showMessage('Please select mode of transportation!')
             error_dialog.exec_()
 
 
+# Main Driver
 if __name__ == "__main__":
     import sys
 
