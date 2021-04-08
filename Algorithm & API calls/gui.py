@@ -85,7 +85,7 @@ class Ui_JourneyPlannerGUI(object):
         self.dijkstraPlotButton = QtWidgets.QPushButton(self.routeSelectionGroupBox)
         self.dijkstraPlotButton.setGeometry(QtCore.QRect(320, 100, 141, 51))
         self.dijkstraPlotButton.setObjectName("dijkstraPlotButton")
-        self.dijkstraPlotButton.setStyleSheet("background-color:#cc0000;\n"
+        self.dijkstraPlotButton.setStyleSheet("background-color:#FE1F16;\n"
                                            "	                                            border-radius:6px;\n"
                                            "	                                            border:1px solid #800000;\n"
                                            "	                                            display:inline-block;\n"
@@ -129,6 +129,10 @@ class Ui_JourneyPlannerGUI(object):
         self.htmlView.setObjectName("htmlView")
         self.webEngineView = QWebEngineView()
         self.htmlView.addWidget(self.webEngineView)
+
+        with open('default.html', 'r') as f:
+            html = f.read()
+            self.webEngineView.setHtml(html)
 
         JourneyPlannerGUI.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(JourneyPlannerGUI)

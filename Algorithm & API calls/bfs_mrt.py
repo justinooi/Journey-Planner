@@ -102,6 +102,3 @@ def bfs_mrt(start, end):
     result_list = [result_array, len(path)-1, transfer_counter]
 
     return result_list
-
-if __name__ == '__main__':
-    print(bfs_mrt("Dhoby Ghaut", "Tuas Link"))
