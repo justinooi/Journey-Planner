@@ -36,22 +36,28 @@ def bfs_mrt(start, end):
 
     def bfs(graph, start, end):
         # maintain a queue of paths
-        queue = []
+        from queue import Queue
+        seen=set()
+        queue = Queue()
         # push the first path into the queue
-        queue.append([start])
+        queue.put([start])
         while queue:
             # get the first path from the queue
-            path = queue.pop(0)
+            path = queue.get()
             # get the last node from the path
             node = path[-1]
             # path found
             if node == end:
                 return path
+            # if node has been visited before: add to seen
+            if node in seen:
+                continue
+            seen.add(node)
             # enumerate all adjacent nodes, construct a new path and push it into the queue
             for adjacent in graph.get(node, []):
                 new_path = list(path)
                 new_path.append(adjacent)
-                queue.append(new_path)
+                queue.put(new_path)
 
     path = bfs(graph, stop_desc_map[start]["MRTCode"], stop_desc_map[end]["MRTCode"])
 
