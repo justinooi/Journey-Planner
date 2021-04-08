@@ -41,9 +41,9 @@ def bfs_bus(start, end):
         # push the first path into the queue
         queue.put([start])
         while queue:
-            # get the first path from the queue
+            # gets first path from queue
             path = queue.get()
-            # get the last node from the path
+            # gets last node from the path
             node = path[-1]
             # path found
             if node == end:
@@ -52,7 +52,7 @@ def bfs_bus(start, end):
             if node in seen:
                 continue
             seen.add(node)
-            # enumerate all adjacent nodes, construct a new path and push it into the queue
+            # adds in all adjacent nodes, construct a new path and push it into the queue
             for adjacent in graph.get(node, []):
                 new_path = list(path)
                 new_path.append(adjacent)

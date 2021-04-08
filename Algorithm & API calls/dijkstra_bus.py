@@ -18,7 +18,6 @@ def dijkstra_bus(start, end):
     routes = json.loads(open("routes.json").read())
 
     print("Initializing  tables...\n")
-    print("Initializing  tables..,\n")
     stop_desc_map = {stop["Description"]: stop for stop in stops}
     stop_code_map = {stop["BusStopCode"]: stop for stop in stops}
 
@@ -49,7 +48,7 @@ def dijkstra_bus(start, end):
     print("Initializing Graph...\n")
     graph = {}
     for service, path in routes_map.items():
-        # hack around broken data
+        # hack around broken data, in some cases, API datasets contain no attributes, added to prevent none errors
         path.sort(key=lambda r: r["StopSequence"])
         for route_index in range(len(path) - 1):
             key = path[route_index]["BusStopCode"]
@@ -70,29 +69,29 @@ def dijkstra_bus(start, end):
     def dijkstras(graph, start, end):
 
         seen = set()
-        # maintain a queue of paths
+        # maintains a queue of paths
         queue = []
-        # push the first path into the queue
+        # push the first path found into the queue
         heapq.heappush(queue, (0, 0, 0, [(start, None)]))
         while queue:
-            # get the first path from the queue
+            # gets first path from queue
             (curr_cost, curr_distance, curr_transfers, path) = heapq.heappop(queue)
-            # get the last node from the path
+            # gets last node from path
             (node, curr_service) = path[-1]
-            # path found
+            # path found, return cost, parameters, distance and final path
             if node == end:
                 return curr_cost, curr_distance, curr_transfers, path
             if (node, curr_service) in seen:
                 continue
             seen.add((node, curr_service))
-            # enumerate all adjacent nodes, construct a new path and push it into the queue
+            # adds in all adjacent nodes, construct a new path and push it into the queue
             for (adjacent, service), distance in graph.get(node, {}).items():
                 new_path = list(path)
                 new_path.append((adjacent, service))
                 new_distance = curr_distance + distance
                 new_cost = distance + curr_cost
                 new_transfers = curr_transfers
-                # If path service is not the same as initial service, add transfer cost to total trip
+                # If path service is not the same as initial service, add additional transfer cost to total trip
                 if curr_service != service:
                     new_cost += cost_per_transfer
                     new_transfers += 1
